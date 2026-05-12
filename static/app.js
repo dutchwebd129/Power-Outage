@@ -374,7 +374,7 @@ async function registerUser() {
         return;
     }
 
-    const res = await fetch("http://127.0.0.1:8000/register", {
+    const res = await fetch("/register", {
 
         method: "POST",
 
