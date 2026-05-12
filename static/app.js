@@ -206,10 +206,13 @@ async function predict() {
 
 async function getWeather() {
 
-    const apiKey = "9f2a9842e339028b511fb22496efdd78";
+
+
+    const API_KEY = os.environ.get("WEATHER_API_KEY")
+
 
     const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=Ilorin&appid=${apiKey}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=Ilorin&appid=${API_KEY}&units=metric`
     );
 
     const data = await response.json();
