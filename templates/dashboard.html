@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Power Risk Monitoring System</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <h2>BUILDINGS</h2>
+
+        <div class="building" onclick="setBuilding('ILAB')">ILAB</div>
+        <div class="building" onclick="setBuilding('CBT')">CBT</div>
+        <div class="building" onclick="setBuilding('Mosque')">Mosque</div>
+        <div class="building" onclick="setBuilding('International Hostel Female')">International Hostel Female</div>
+        <div class="building" onclick="setBuilding('International Hostel Male')">International Hostel Male</div>
+        <div class="building" onclick="setBuilding('LR 11')">LR 11</div>
+        <div class="building" onclick="setBuilding('LR 12')">LR 12</div>
+        <div class="building" onclick="setBuilding('LR 13')">LR 13</div>
+        <div class="building" onclick="setBuilding('LR 14')">LR 14</div>
+        <div class="building" onclick="setBuilding('LR 15')">LR 15</div>
+        <div class="building" onclick="setBuilding('LR 16')">LR 16</div>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+        <div class="header">
+            Campus Power Risk Dashboard
+
+            <div class="top-stats">
+
+                <div class="stat-box">
+                    <h4>Total Buildings</h4>
+                    <p>11</p>
+                </div>
+
+                <div class="stat-box">
+                    <h4>Active Alerts</h4>
+                    <p id="alertCount">2</p>
+                </div>
+
+                <div class="stat-box">
+                    <h4>Avg Voltage</h4>
+                    <p id="avgVoltage">218V</p>
+                </div>
+
+                <div class="stat-box">
+                    <h4>System Status</h4>
+                    <p style="color:#22c55e;">Operational</p>
+                </div>
+
+            </div>
+
+            <div class="system-status">
+                <div class="status-dot"></div>
+                Monitoring Active
+            </div>
+        </div>
+
+        <div class="grid">
+
+            <!-- BUILDING CARD -->
+
+            <div class="card">
+
+                <h3>Selected Building</h3>
+
+                <div id="selectedBuilding">
+                    ILAB
+                </div>
+
+                <br>
+
+                <button id="predictBtn" onclick="predict()">
+                    Run Prediction
+                </button>
+
+            </div>
+
+            <!-- RISK OUTPUT -->
+
+            <div class="card">
+
+                <h3>Risk Output</h3>
+
+                <div id="result">
+                    Waiting for prediction...
+                </div>
+
+                <div id="statusText">
+                    System Idle
+                </div>
+
+            </div>
+
+            <!-- LIVE METRICS -->
+
+            <div class="card">
+
+                <h3>Live Metrics</h3>
+
+                <div class="metric">
+                    ⚡ Transformer Load:
+                    <span id="loadValue">--</span>
+                </div>
+
+                <div class="metric">
+                    🔋 Grid Voltage:
+                    <span id="voltageValue">--</span>
+                </div>
+
+                <div class="metric">
+                    🌧 Weather:
+                    <span id="weatherValue">--</span>
+                </div>
+
+                <div class="metric">
+                    💨 Wind Speed:
+                    <span id="windValue">--</span>
+                </div>
+
+            </div>
+
+            <!-- CHART -->
+
+            <div class="card" style="grid-column: span 2;">
+
+                <h3>Risk Analysis Chart</h3>
+
+                <canvas id="chart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>
+
