@@ -1,3 +1,5 @@
+import requests
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -111,8 +113,54 @@ async def register(request: Request):
 # PREDICTION ENDPOINT
 # -----------------------------
 
+@app.get("/weather")
+def get_weather():
+
+    api_key = os.environ.get("WEATHER_API_KEY")
+
+    weather_url = (
+        f"https://api.openweathermap.org/data/2.5/weather"
+        f"?q=Ilorin&appid={api_key}&units=metric"
+    )
+
+    response = requests.get(weather_url)
+
+    data = response.json()
+
+    weather_main = data["weather"][0]["main"]
+
+    if weather_main == "Clear":
+        weather_main = "Sunny"
+
+    elif weather_main == "Clouds":
+        weather_main = "Cloudy"
+
+    elif weather_main == "Rain":
+        weather_main = "Rainy"
+
+    elif weather_main == "Thunderstorm":
+        weather_main = "Stormy"
+
+    else:
+        weather_main = "Cloudy"
+
+    return {
+        "weather_condition": weather_main,
+        "temperature_c": data["main"]["temp"],
+        "humidity_percent": data["main"]["humidity"],
+        "wind_speed_kmh": data["wind"]["speed"] * 3.6,
+        "rainfall_mm": data.get("rain", {}).get("1h", 0)
+    }
+
 @app.post("/predict")
 def predict(data: dict):
+
+
+    # api_key = os.environ.get("WEATHER_API_KEY")
+    # location = data.get("location", "Ilorin") # Default to Lagos if not provided
+    
+    # weather_url = f"https://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
+    # weather_res = requests.get(weather_url).json()
 
     date = pd.to_datetime(data["date"])
 

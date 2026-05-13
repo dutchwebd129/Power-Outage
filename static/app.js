@@ -206,48 +206,11 @@ async function predict() {
 
 async function getWeather() {
 
-
-
-    const API_KEY = os.environ.get("WEATHER_API_KEY")
-
-
-    const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=Ilorin&appid=${API_KEY}&units=metric`
-    );
+    const response = await fetch("/weather");
 
     const data = await response.json();
 
-    let weatherMain = data.weather[0].main;
-
-    if (weatherMain === "Clear") {
-        weatherMain = "Sunny";
-    }
-    else if (weatherMain === "Clouds") {
-        weatherMain = "Cloudy";
-    }
-    else if (weatherMain === "Rain") {
-        weatherMain = "Rainy";
-    }
-    else if (weatherMain === "Thunderstorm") {
-        weatherMain = "Stormy";
-    }
-    else {
-        weatherMain = "Cloudy";
-    }
-
-    return {
-
-        weather_condition: weatherMain,
-
-        temperature_c: data.main.temp,
-
-        humidity_percent: data.main.humidity,
-
-        wind_speed_kmh: data.wind.speed * 3.6,
-
-        rainfall_mm:
-            data.rain ? data.rain["1h"] || 0 : 0
-    };
+    return data;
 }
 
 /* --------------------------
