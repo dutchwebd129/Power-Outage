@@ -152,6 +152,7 @@ def get_weather():
         "rainfall_mm": data.get("rain", {}).get("1h", 0)
     }
 
+
 @app.post("/predict")
 def predict(data: dict):
 
